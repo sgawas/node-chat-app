@@ -3,7 +3,7 @@ const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 
-const {generateMessage,generateLocationMessage} = require('./utils/message');
+const {generateMessage} = require('./utils/message');
  const publicPath = path.join(__dirname,'../public');
 
 const port = process.env.port || 3000;
@@ -23,13 +23,7 @@ io.on('connection',(socket) =>{   // lets u register an eventlistener and listen
     socket.on('createMessage', (message,callback)=>{
         console.log('createMessage', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-        callback();
-    });
-
-    socket.on('createLocationMessage', (coords)=>{
-        console.log(coords);
-      //  io.emit('newMessage', generateMessage('Admin', `${coords.latitude}, ${coords.longitude} `));
-        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude,coords.longitude));
+        callback('This is from server');
     });
 
     socket.on('disconnect',() =>{

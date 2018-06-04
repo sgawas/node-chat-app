@@ -23,7 +23,7 @@ io.on('connection',(socket) =>{   // lets u register an eventlistener and listen
     socket.on('createMessage', (message,callback)=>{
         console.log('createMessage', message);
         io.emit('newMessage', generateMessage(message.from, message.text));
-        callback();
+        callback('This is from server');
     });
 
     socket.on('createLocationMessage', (coords)=>{
